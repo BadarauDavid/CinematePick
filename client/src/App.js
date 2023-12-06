@@ -2,7 +2,9 @@ import './App.css';
 
 function App() {
   return (
-   <p>Merge</p>
+    <h1 className="text-red-300 text-3xl font-bold underline">
+    Hello world!
+  </h1>
   );
 }
 
