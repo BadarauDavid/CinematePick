@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   res.send("Succesful response.");
 });
 
-app.post("/api/addToFav", (req, res) => {
+app.post("/api/movies/addToFav", (req, res) => {
   const name = req.body.name;
   const year = req.body.year;
   const status = req.body.status;
@@ -42,5 +42,24 @@ app.post("/api/addToFav", (req, res) => {
     res.status(404).json({ succes: false });
   }
 });
+
+app.get("/api/movies/getAll", async (req, res) => {
+  try {
+    const allMovies = await Movie.find();
+    res.json(allMovies);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.delete("/api/movies/deleteById/:_id", async (req, res)=>{
+        const id = req.params._id;
+        try {
+            await Movie.findByIdAndDelete(id);
+            res.status(200).json({ succes: true });
+        }catch(err){
+            console.error(err); 
+        }
+    })
 
 app.listen(8000, () => console.log("Exemple app is listening on port 8000."));
