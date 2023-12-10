@@ -1,19 +1,16 @@
 import logo from "../img/logo.png"
-import React from "react";
+import { useEffect, useState } from "react";
     import {
-      Navbar,
       MobileNav,
       Typography,
       Button,
       IconButton,
-      Card,
     } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
 
 export default function NavBar(){
-    const [openNav, setOpenNav] = React.useState(false);
+    const [openNav, setOpenNav] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
       window.addEventListener(
         "resize",
         () => window.innerWidth >= 960 && setOpenNav(false),

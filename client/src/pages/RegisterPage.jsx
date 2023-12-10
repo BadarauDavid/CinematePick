@@ -30,12 +30,13 @@ export default function RegisterPage(){
                 <div className="-ml-2.5">
                   <Checkbox label="I accept the Terms and Conditions "/>
                 </div>
-                <a href="/terms-and-conditions">Check Terms and Conditions</a>
               </CardBody>
               <CardFooter className="pt-0">
                 <Button variant="gradient" fullWidth>
                   Register
                 </Button>
+                <br/>
+                <a href="/terms-and-conditions" className="mx-16">Check Terms and Conditions</a>
                 <Typography variant="small" className="mt-6 flex justify-center">
                   You have an account?
                   <Typography

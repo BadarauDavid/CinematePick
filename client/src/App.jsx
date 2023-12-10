@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback} from "react";
 import FavoritePage from "./pages/FavoritePage";
 import WatchlistPage from "./pages/WatchlistPage";
 import LogInPage from "./pages/LogInPage";
@@ -32,13 +32,14 @@ const options = [
 
 ];
 
-function onWondowsMatch(){
-  if(localStorage.theme === 'dark' || (!("theme" in localStorage) && darkQuery.matches)){
+const onWondowsMatch = useCallback(() => {
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && darkQuery.matches)) {
     element.classList.add('dark');
-  }else {
+  } else {
     element.classList.remove('dark');
   }
-}
+}, [darkQuery.matches,element.classList]);
+
 onWondowsMatch();
 useEffect(()=>{
   switch (theme){
@@ -55,7 +56,7 @@ useEffect(()=>{
      onWondowsMatch();
           break;
   }
-},[theme])
+},[theme,element.classList, onWondowsMatch])
 
 darkQuery.addEventListener("change",(e)=>{
   if(!("theme" in localStorage)){
