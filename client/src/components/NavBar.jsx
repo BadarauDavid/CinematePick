@@ -69,13 +69,11 @@ export default function NavBar(){
 
           <nav className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 dark:bg-gray-900 dark:text-white bg-white">
             <div className="flex items-center justify-between dark:text-white text-black">
-              <Typography
-                as="a"
-                href="#"
-                className="mr-4 cursor-pointer py-1.5 font-medium"
-              >
-                Material Tailwind
-              </Typography>
+
+         <a href="http://localhost:3000/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img src={logo} class="h-8" alt="CinematePick Logo" />
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CinematePick</span>
+         </a>
               <div className="flex items-center gap-4">
                 <div className="mr-4 hidden lg:block">{navList}</div>
                 <div className="flex items-center gap-x-1">
