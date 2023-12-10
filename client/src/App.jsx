@@ -3,6 +3,8 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import { useEffect, useState } from "react";
+import FavoritePage from "./pages/FavoritePage";
+import WatchlistPage from "./pages/WatchlistPage";
 
 
 function App() {
@@ -82,6 +84,12 @@ darkQuery.addEventListener("change",(e)=>{
       <Router>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/favoriteMovies" element={<FavoritePage/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/watchlist" element={<WatchlistPage/>}/>
         </Routes>
       </Router>
       </div>

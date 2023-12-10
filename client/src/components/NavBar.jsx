@@ -28,8 +28,8 @@ export default function NavBar(){
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <a href="#" className="flex items-center dark:text-white text-black">
-              Pages
+            <a href="/favoriteMovies" className="flex items-center dark:text-white text-black">  
+                 Favorite Movies
             </a>
           </Typography>
           <Typography
@@ -38,30 +38,11 @@ export default function NavBar(){
             color="blue-gray"
             className="p-1 font-normal"
           >
-            <a href="#" className="flex items-center dark:text-white text-black">
-              Account
+            <a href="/watchlist" className="flex items-center dark:text-white text-black">
+            Watchlist
             </a>
           </Typography>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="p-1 font-normal"
-          >
-            <a href="#" className="flex items-center dark:text-white text-black">
-              Blocks
-            </a>
-          </Typography>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="p-1 font-normal"
-          >
-            <a href="#" className="flex items-center dark:text-white text-black">
-              Docs
-            </a>
-          </Typography>
+      
         </ul>
       );
 
