@@ -8,6 +8,7 @@ import React from "react";
       IconButton,
       Card,
     } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar(){
     const [openNav, setOpenNav] = React.useState(false);
@@ -58,6 +59,7 @@ export default function NavBar(){
               <div className="flex items-center gap-4">
                 <div className="mr-4 hidden lg:block">{navList}</div>
                 <div className="flex items-center gap-x-1">
+                  <a href="/logIn">
                   <Button
                     variant="text"
                     size="sm"
@@ -65,6 +67,8 @@ export default function NavBar(){
                   >
                     <span>Log In</span>
                   </Button>
+                  </a>
+                  <a href="/register">
                   <Button
                     variant="outlined"
                     size="sm"
@@ -72,6 +76,7 @@ export default function NavBar(){
                   >
                     <span>Sign in</span>
                   </Button>
+                  </a>
                 </div>
                 <IconButton
                   variant="text"

@@ -5,6 +5,8 @@ import HomePage from "./pages/HomePage";
 import { useEffect, useState } from "react";
 import FavoritePage from "./pages/FavoritePage";
 import WatchlistPage from "./pages/WatchlistPage";
+import LogInPage from "./pages/LogInPage";
+import RegisterPage from "./pages/RegisterPage";
 
 
 function App() {
@@ -90,6 +92,12 @@ darkQuery.addEventListener("change",(e)=>{
         </Routes>
         <Routes>
           <Route path="/watchlist" element={<WatchlistPage/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/logIn" element={<LogInPage/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
       </Router>
       </div>
