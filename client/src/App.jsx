@@ -82,7 +82,7 @@ darkQuery.addEventListener("change",(e)=>{
          ))
         }
       </div>
-      <div style={{ minHeight: "81vh" }}>
+      <div style={{ minHeight: "84vh" }}>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
