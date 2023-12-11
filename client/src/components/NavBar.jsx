@@ -40,9 +40,9 @@ export default function NavBar(){
           <nav className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 dark:bg-gray-900 dark:text-white bg-white">
             <div className="flex items-center justify-between dark:text-white text-black">
 
-         <a href="http://localhost:3000/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src={logo} class="h-8" alt="CinematePick Logo" />
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CinematePick</span>
+         <a href="http://localhost:3000/" className="flex items-center space-x-3 rtl:space-x-reverse">
+      <img src={logo} className="h-8" alt="CinematePick Logo" />
+      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CinematePick</span>
          </a>
               <div className="flex items-center gap-4">
                 <div className="mr-4 hidden lg:block">{navList}</div>
@@ -111,7 +111,7 @@ export default function NavBar(){
                 <Button fullWidth variant="text" size="sm" className="dark:text-white text-black">
                   <span>Log In</span>
                 </Button>
-                <Button fullWidth variant="outliner" size="sm" className="dark:text-black text-white dark:bg-white bg-gray-900">
+                <Button fullWidth variant="outlined" size="sm" className="dark:text-black text-white dark:bg-white bg-gray-900">
                   <span>Sign in</span>
                 </Button>
               </div>
