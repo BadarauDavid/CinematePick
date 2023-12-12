@@ -52,11 +52,25 @@ if(existingUser){
     res.status(404).json({ succes: false });
   }
 }
-
-
-
-  
 })
+
+app.post("/login", async(req, res) => {
+  try{
+    const check = await Login.findOne({name: req.body.name});
+    if(!check){
+      res.send("user name cannot find");
+    }
+
+    const isPasswordMatch = await bcrytp.compare(req.body.password,check.password);
+    if(isPasswordMatch){
+res.send("Succes login")
+    }else {
+      res.send("wrong pass")
+    }
+  }catch  {
+res.send("wrong details");
+  }
+});
 
 app.post("/api/movies/addToWatchlist", (req, res) => {
   const name = req.body.name;
