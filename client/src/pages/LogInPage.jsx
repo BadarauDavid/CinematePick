@@ -5,11 +5,43 @@ import {
     CardFooter,
     Typography,
     Input,
-    Checkbox,
     Button,
   } from "@material-tailwind/react";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function LogInPage(){
+    const[name,setName] = useState('');
+    const[password,setPassword] = useState('');
+    const navigate = useNavigate();
+
+async function submit(e){
+    e.preventDefault();
+
+    try{
+            await axios.post("http://localhost:8000/login",{
+                "name": name,
+                "password":password
+            })
+            .then(res=>{
+                if(res.data==="exist"){
+                    navigate("/",{state:{id:name}});
+                }else if(res.data==="notExist"){
+                    alert("User have note sign up");
+                }
+            })
+            .catch(e=>{
+                alert("wrong details");
+                console.log(e);
+            })
+    }catch(err){
+            console.log(err);
+          
+    }
+}
+
    return (
     <div className="flex justify-center mt-20" >
 
@@ -24,14 +56,11 @@ export default function LogInPage(){
         </Typography>
       </CardHeader>
       <CardBody className="flex flex-col gap-4">
-        <Input label="Email" size="lg" />
-        <Input label="Password" size="lg" />
-        <div className="-ml-2.5">
-          <Checkbox label="Remember Me" />
-        </div>
+        <Input label="Name" size="lg" onChange={(e)=>{setName(e.target.value)}}/>
+        <Input label="Password" size="lg"  onChange={(e)=>{setPassword(e.target.value)}}/>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth>
+        <Button variant="gradient" fullWidth onClick={(e)=>submit(e)}>
           Sign In
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">

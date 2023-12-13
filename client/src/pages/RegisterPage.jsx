@@ -8,8 +8,39 @@ import {
     Checkbox,
     Button,
   } from "@material-tailwind/react";
-
+import { useState } from "react";
+import  axios  from "axios";
+import { useNavigate } from "react-router-dom";
 export default function RegisterPage(){
+
+    const[name,setName] = useState('');
+    const[password,setPassword] = useState('');
+    const navigate = useNavigate();
+
+async function submit(e){
+    e.preventDefault();
+
+    try{
+        await axios.post("http://localhost:8000/register",{
+            "name": name,
+            "password":password
+        })
+        .then(res=>{
+            if(res.data==="exist"){
+               alert("User alredy exist")
+            }else if(res.data==="notExist"){
+                navigate("/",{state:{id:name}});
+            }
+        })
+        .catch(e=>{
+            alert("wrong details");
+            console.log(e);
+        })
+}catch(err){
+        console.log(err);
+      
+}
+}
     return (
             <div className="flex justify-center mt-20" >
         
@@ -24,15 +55,15 @@ export default function RegisterPage(){
                 </Typography>
               </CardHeader>
               <CardBody className="flex flex-col gap-4">
-                <Input label="UserName" size="lg" />
+                <Input label="UserName" size="lg" onChange={(e)=>{setName(e.target.value)}}/>
                 <Input label="Email" size="lg" />
-                <Input label="Password" size="lg" />
+                <Input label="Password" size="lg" onChange={(e)=>{setPassword(e.target.value)}}/>
                 <div className="-ml-2.5">
                   <Checkbox label="I accept the Terms and Conditions "/>
                 </div>
               </CardBody>
               <CardFooter className="pt-0">
-                <Button variant="gradient" fullWidth>
+                <Button variant="gradient" fullWidth onClick={(e)=>submit(e)}>
                   Register
                 </Button>
                 <br/>

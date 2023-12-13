@@ -39,15 +39,14 @@ app.post("/register",async(req,res)=>{
   }
 const existingUser = await Login.findOne({name: data.name});
 if(existingUser){
-  res.send("User already exist!");
+  res.send("exist!");
 }else{
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrytp.hash(data.password,saltRounds);
     data.password = hashedPassword;
     const userdata = await Login.insertMany(data);
-    console.log(userdata);
-    res.status(200).json({ succes: true });
+    res.send("notExist");
   } catch (err) {
     res.status(404).json({ succes: false });
   }
@@ -58,17 +57,19 @@ app.post("/login", async(req, res) => {
   try{
     const check = await Login.findOne({name: req.body.name});
     if(!check){
-      res.send("user name cannot find");
+      res.send("notExist");
+    }else{
+      res.send("exist");
     }
 
     const isPasswordMatch = await bcrytp.compare(req.body.password,check.password);
     if(isPasswordMatch){
-res.send("Succes login")
+res.send("succesLogin")
     }else {
-      res.send("wrong pass")
+      res.send("wrongPass")
     }
   }catch  {
-res.send("wrong details");
+res.send("wrongDetails");
   }
 });
 

@@ -6,8 +6,10 @@ import { Carousel, Card,
         IconButton } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function HomePage (){
+        const location = useLocation();
 const [movies, setMovies] = useState(null);
 const getMovies = async() =>{
         try {
@@ -80,9 +82,10 @@ return(
 
                </Card>
 
-
         ))}
       </Carousel>
+
+      <h1>Hello {location?.state?.id} and welcome!</h1>
  </div>
 
 )
