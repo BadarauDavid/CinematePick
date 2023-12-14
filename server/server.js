@@ -57,20 +57,20 @@ if(existingUser){
 app.post("/login", async(req, res) => {
   const name = req.body.name;
   const password = req.body.password;
-  const user = new Login({
-    name,
-    password
-  })
+  // const user = new Login({
+  //   name,
+  //   password
+  // })
 
-    const check = await Login.findOne({name: user.name});
+    const check = await Login.findOne({name: name});
     
 
     if(check ){
-      const isPasswordMatch = await bcrytp.compare(user.password,check.password);
+      const isPasswordMatch = await bcrytp.compare(password,check.password);
     if(isPasswordMatch){
-      const acsessToken = jwt.sign({id:user.id},"mySecretKey")
+      const acsessToken = jwt.sign({id:check.id},"mySecretKey")
       res.json({
-        name : user.name,
+        name : check.name,
         acsessToken
       });
     }else{
@@ -80,6 +80,44 @@ app.post("/login", async(req, res) => {
     res.status(400).json("Username or password incorrect1");
   }
 });
+
+const verify = (req,res,next)=>{
+  const authHeader  = req.headers.authorization;
+  if(authHeader){
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token,"mySecretKey",(err,user)=>{
+      if(err){
+        return res.status(403).json("Token is not valid!")
+      }
+
+      req.user = user;
+      next();
+    });
+  }else{
+    res.status(401).json("You are not authenticated!");
+  }
+}
+
+app.patch("/api/users/:_id",verify ,async(req,res)=>{
+  const id = req.params._id;
+  const updates = req.body;
+
+
+if(req.user.id === id){
+  try {
+      console.log("da")
+    const updatedName = await Login.findByIdAndUpdate({_id: id}, {name : updates.name},{new: true});
+    return res.json(updatedName);
+}catch(err){
+    console.error(err);
+}
+}else {
+  res.status(403).json("You are not allowed to change infos!");
+}
+
+})
+
 
 app.post("/api/movies/addToWatchlist", (req, res) => {
   const name = req.body.name;
