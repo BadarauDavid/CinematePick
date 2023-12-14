@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrytp = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 let Movie = require("./model/Movie.js");
 let Login = require("./model/Login.js");
@@ -54,22 +55,29 @@ if(existingUser){
 })
 
 app.post("/login", async(req, res) => {
-  try{
-    const check = await Login.findOne({name: req.body.name});
-    if(!check){
-      res.send("notExist");
-    }else{
-      res.send("exist");
-    }
+  const name = req.body.name;
+  const password = req.body.password;
+  const user = new Login({
+    name,
+    password
+  })
 
-    const isPasswordMatch = await bcrytp.compare(req.body.password,check.password);
+    const check = await Login.findOne({name: user.name});
+    
+
+    if(check ){
+      const isPasswordMatch = await bcrytp.compare(user.password,check.password);
     if(isPasswordMatch){
-res.send("succesLogin")
-    }else {
-      res.send("wrongPass")
+      const acsessToken = jwt.sign({id:user.id},"mySecretKey")
+      res.json({
+        name : user.name,
+        acsessToken
+      });
+    }else{
+      res.status(400).json("Username or password incorrect1");
     }
-  }catch  {
-res.send("wrongDetails");
+  }else{
+    res.status(400).json("Username or password incorrect1");
   }
 });
 
