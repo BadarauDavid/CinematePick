@@ -10,36 +10,41 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSignIn } from "react-auth-kit";
+import { AxiosError } from "axios";
 
-
-export default function LogInPage(){
+ function LogInPage(){
     const[name,setName] = useState('');
     const[password,setPassword] = useState('');
     const navigate = useNavigate();
+    const signIn = useSignIn();
+    const [error, setError] = useState("");
 
 async function submit(e){
     e.preventDefault();
 
-    try{
-            await axios.post("http://localhost:8000/login",{
-                "name": name,
-                "password":password
-            })
-            .then(res=>{
-                if(res.data==="exist"){
-                    navigate("/",{state:{id:name}});
-                }else if(res.data==="notExist"){
-                    alert("User have note sign up");
-                }
-            })
-            .catch(e=>{
-                alert("wrong details");
-                console.log(e);
-            })
-    }catch(err){
-            console.log(err);
-          
+    setError("");
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/login`,
+        {
+          "name": name,
+          "password":password
+      }
+      );
+      signIn({
+        token: response.data.acsessToken,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: { name: name },
+      });
+      navigate("/");
+    } catch (err) {
+      if (err instanceof AxiosError) setError(err.response?.data.message);
+      else if (err instanceof Error) setError(err.message);
     }
+
 }
 
    return (
@@ -80,3 +85,5 @@ async function submit(e){
     </div>
   );
 }
+
+export default LogInPage;
