@@ -32,6 +32,16 @@ export default function NavBar(){
             </a>
           </Typography>
       
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <a href="/history" className="flex items-center dark:text-white text-black">
+            History
+            </a>
+          </Typography>
         </ul>
       );
 

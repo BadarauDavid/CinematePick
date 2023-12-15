@@ -21,7 +21,7 @@ async function submit(e){
     e.preventDefault();
 
     try{
-        await axios.post("http://localhost:8000/register",{
+        await axios.post("http://localhost:8000/api/register",{
             "name": name,
             "password":password
         })
@@ -29,7 +29,7 @@ async function submit(e){
             if(res.data==="exist"){
                alert("User alredy exist")
             }else if(res.data==="notExist"){
-                navigate("/",{state:{id:name}});
+                navigate("/logIn");
             }
         })
         .catch(e=>{
@@ -56,7 +56,6 @@ async function submit(e){
               </CardHeader>
               <CardBody className="flex flex-col gap-4">
                 <Input label="UserName" size="lg" onChange={(e)=>{setName(e.target.value)}}/>
-                <Input label="Email" size="lg" />
                 <Input label="Password" size="lg" onChange={(e)=>{setPassword(e.target.value)}}/>
                 <div className="-ml-2.5">
                   <Checkbox label="I accept the Terms and Conditions "/>
