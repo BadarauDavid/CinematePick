@@ -8,8 +8,6 @@ let Movie = require("./model/Movie.js");
 let Login = require("./model/Login.js");
 
 const {reader} = require("./fileReader.js");
-const { name } = require("ejs");
-
 
 const app = express();
 app.use(express.json());
@@ -33,10 +31,11 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/register",async(req,res)=>{
+app.post("/api/register",async(req,res)=>{
   const data = {
     name : req.body.name,
-    password : req.body.password
+    password : req.body.password,
+    movies : []
   }
 const existingUser = await Login.findOne({name: data.name});
 if(existingUser){
@@ -54,13 +53,9 @@ if(existingUser){
 }
 })
 
-app.post("/login", async(req, res) => {
+app.post("/api/login", async(req, res) => {
   const name = req.body.name;
   const password = req.body.password;
-  // const user = new Login({
-  //   name,
-  //   password
-  // })
 
     const check = await Login.findOne({name: name});
     
@@ -68,7 +63,7 @@ app.post("/login", async(req, res) => {
     if(check ){
       const isPasswordMatch = await bcrytp.compare(password,check.password);
     if(isPasswordMatch){
-      const acsessToken = jwt.sign({id:check.id},"mySecretKey")
+      const acsessToken = jwt.sign({id:check.id},"mySecretKey",{expiresIn:"15m"})
       res.json({
         name : check.name,
         acsessToken
@@ -98,25 +93,6 @@ const verify = (req,res,next)=>{
     res.status(401).json("You are not authenticated!");
   }
 }
-
-app.patch("/api/users/:_id",verify ,async(req,res)=>{
-  const id = req.params._id;
-  const updates = req.body;
-
-
-if(req.user.id === id){
-  try {
-      console.log("da")
-    const updatedName = await Login.findByIdAndUpdate({_id: id}, {name : updates.name},{new: true});
-    return res.json(updatedName);
-}catch(err){
-    console.error(err);
-}
-}else {
-  res.status(403).json("You are not allowed to change infos!");
-}
-
-})
 
 
 app.post("/api/movies/addToWatchlist", (req, res) => {

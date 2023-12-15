@@ -5,8 +5,8 @@ const LoginSchema = new Schema({
     name: {type: String,
            required : true},
     password: {type: String,
-        required : true}
-
+        required : true},
+    movies:[{movieId : Schema.ObjectId , movieStatus : String}]
 })
 
 const Login = model("Login", LoginSchema);
