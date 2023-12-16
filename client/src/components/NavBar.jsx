@@ -63,7 +63,7 @@ export default function NavBar(){
                     size="sm"
                     className="hidden lg:inline-block  dark:text-white text-black"
                   >
-                    <span>Log In</span>
+                    <span>Sign In</span>
                   </Button>
                   </a>
                   <a href="/register">
@@ -72,7 +72,7 @@ export default function NavBar(){
                     size="sm"
                     className="hidden lg:inline-block dark:text-black text-white dark:bg-white bg-gray-900"
                   >
-                    <span>Sign in</span>
+                    <span>Register</span>
                   </Button>
                   </a>
                 </div>

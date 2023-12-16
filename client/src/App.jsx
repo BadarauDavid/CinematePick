@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback} from "react";
 import WatchlistPage from "./pages/WatchlistPage";
 import LogInPage from "./pages/LogInPage";
 import RegisterPage from "./pages/RegisterPage";
-
+import { RequireAuth } from "react-auth-kit";
 
 function App() {
 const [theme,setTheme] = useState(
@@ -88,7 +88,18 @@ darkQuery.addEventListener("change",(e)=>{
           <Route path="/" element={<HomePage/>}/>
         </Routes>
         <Routes>
-          <Route path="/watchlist" element={<WatchlistPage/>}/>
+          <Route path="/watchlist" element={
+                 <RequireAuth loginPath="/login">
+                <WatchlistPage/>
+               </RequireAuth>
+          }/>
+        </Routes>
+        <Routes>
+          <Route path="/history" element={
+                 <RequireAuth loginPath="/login">
+                <WatchlistPage/>
+               </RequireAuth>
+          }/>
         </Routes>
         <Routes>
           <Route path="/logIn" element={<LogInPage/>}/>
